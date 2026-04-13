@@ -12,22 +12,27 @@ export default async function MealsPage({ searchParams }: Props) {
   const meals = query ? await searchMealsByName(query) : [];
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8">
-      <h1 className="mb-6 text-2xl font-bold text-gray-900">Search Recipes</h1>
-      <div className="mb-8 max-w-xl">
+    <div className="mx-auto max-w-7xl px-5 py-10">
+      <h1 className="font-display text-3xl font-bold text-bark">Search Recipes</h1>
+      <p className="mt-1 font-body text-sm text-warm">Find your next favorite dish</p>
+      <div className="mt-6 mb-10 max-w-xl">
         <SearchBar defaultValue={query} />
       </div>
       {query ? (
         <>
-          <p className="mb-4 text-sm text-gray-500">
-            {meals.length} result{meals.length !== 1 ? "s" : ""} for &ldquo;{query}&rdquo;
+          <p className="mb-5 font-body text-sm text-warm">
+            {meals.length} result{meals.length !== 1 ? "s" : ""} for &ldquo;
+            <span className="font-medium text-bark">{query}</span>&rdquo;
           </p>
           <MealGrid meals={meals} />
         </>
       ) : (
-        <p className="py-12 text-center text-gray-500">
-          Enter a search term to find recipes.
-        </p>
+        <div className="flex flex-col items-center justify-center py-20">
+          <div className="text-5xl mb-4">🔍</div>
+          <p className="font-display text-lg text-warm">
+            Enter a search term to find recipes.
+          </p>
+        </div>
       )}
     </div>
   );

@@ -20,7 +20,6 @@ export default function FavoriteButton({
 
   useEffect(() => {
     if (!isSignedIn) return;
-
     fetch("/api/favorites")
       .then((res) => res.json())
       .then((favorites) => {
@@ -43,11 +42,7 @@ export default function FavoriteButton({
         await fetch("/api/favorites", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            meal_id: mealId,
-            meal_name: mealName,
-            meal_thumb: mealThumb,
-          }),
+          body: JSON.stringify({ meal_id: mealId, meal_name: mealName, meal_thumb: mealThumb }),
         });
         setIsFavorite(true);
       }
@@ -62,13 +57,16 @@ export default function FavoriteButton({
     <button
       onClick={toggleFavorite}
       disabled={loading}
-      className={`rounded-md px-4 py-2 text-sm font-medium transition ${
+      className={`group flex items-center gap-2 rounded-full px-5 py-2.5 font-body text-sm font-semibold transition-all active:scale-[0.95] disabled:opacity-50 ${
         isFavorite
-          ? "bg-red-100 text-red-700 hover:bg-red-200"
-          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-      } disabled:opacity-50`}
+          ? "bg-terra-wash text-terra ring-1 ring-terra/20 hover:bg-terra hover:text-white"
+          : "bg-cream-dark text-bark-light ring-1 ring-black/[0.06] hover:bg-terra-wash hover:text-terra hover:ring-terra/20"
+      }`}
     >
-      {isFavorite ? "♥ Saved" : "♡ Save"}
+      <svg width="16" height="16" viewBox="0 0 24 24" fill={isFavorite ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+      {isFavorite ? "Saved" : "Save"}
     </button>
   );
 }

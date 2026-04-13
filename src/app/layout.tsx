@@ -1,18 +1,7 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/components/layout/Header";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Recipe Book",
@@ -26,13 +15,15 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html
-        lang="en"
-        className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-      >
-        <body className="min-h-full flex flex-col">
+      <html lang="en" className="h-full">
+        <body className="min-h-full flex flex-col noise-bg">
           <Header />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 relative z-10">{children}</main>
+          <footer className="relative z-10 border-t border-warm-lighter py-8 text-center">
+            <p className="font-body text-sm text-warm">
+              Recipe Book &mdash; made with care
+            </p>
+          </footer>
         </body>
       </html>
     </ClerkProvider>

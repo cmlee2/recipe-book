@@ -26,27 +26,29 @@ export default async function CommunityPage() {
   const recipes = recipesRes.data || [];
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8">
-      <h1 className="mb-8 text-2xl font-bold text-gray-900">Community</h1>
+    <div className="mx-auto max-w-7xl px-5 py-10">
+      <h1 className="font-display text-3xl font-bold text-bark">Community</h1>
+      <p className="mt-1 font-body text-sm text-warm">See what others are cooking and sharing</p>
 
-      <section className="mb-12">
-        <h2 className="mb-4 text-xl font-semibold text-gray-900">
+      <section className="mt-10 mb-14">
+        <h2 className="mb-5 font-display text-2xl font-bold text-bark">
           Recently Favorited
         </h2>
         {favorites.length === 0 ? (
-          <p className="py-8 text-center text-gray-500">
-            No community favorites yet.
-          </p>
+          <div className="flex flex-col items-center justify-center py-16">
+            <div className="text-4xl mb-3">🌍</div>
+            <p className="font-body text-sm text-warm">No community favorites yet.</p>
+          </div>
         ) : (
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-            {favorites.map((fav) => (
-              <div key={fav.id} className="relative">
+          <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
+            {favorites.map((fav, i) => (
+              <div key={fav.id} className="animate-fade-up" style={{ animationDelay: `${0.04 * i}s` }}>
                 <MealCard
                   id={fav.meal_id}
                   name={fav.meal_name || "Unknown"}
                   thumb={fav.meal_thumb || ""}
                 />
-                <p className="mt-1 text-xs text-gray-400">
+                <p className="mt-1.5 font-body text-xs text-warm">
                   by {(fav.profiles as { display_name: string } | null)?.display_name || "Anonymous"}
                 </p>
               </div>
@@ -56,17 +58,23 @@ export default async function CommunityPage() {
       </section>
 
       <section>
-        <h2 className="mb-4 text-xl font-semibold text-gray-900">
+        <h2 className="mb-5 font-display text-2xl font-bold text-bark">
           Shared Recipes
         </h2>
         {recipes.length === 0 ? (
-          <p className="py-8 text-center text-gray-500">
-            No shared recipes yet. <Link href="/my-recipes/new" className="text-orange-500 hover:text-orange-600">Create one!</Link>
-          </p>
+          <div className="flex flex-col items-center justify-center py-16">
+            <div className="text-4xl mb-3">📖</div>
+            <p className="font-body text-sm text-warm">
+              No shared recipes yet.{" "}
+              <Link href="/my-recipes/new" className="font-semibold text-terra hover:text-terra-dark">
+                Create one!
+              </Link>
+            </p>
+          </div>
         ) : (
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-            {recipes.map((recipe) => (
-              <div key={recipe.id} className="relative">
+          <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
+            {recipes.map((recipe, i) => (
+              <div key={recipe.id} className="animate-fade-up" style={{ animationDelay: `${0.04 * i}s` }}>
                 <RecipeCard
                   id={recipe.id}
                   name={recipe.name}
@@ -75,7 +83,7 @@ export default async function CommunityPage() {
                   imageUrl={recipe.image_url}
                   href={`/community/recipes/${recipe.id}`}
                 />
-                <p className="mt-1 text-xs text-gray-400">
+                <p className="mt-1.5 font-body text-xs text-warm">
                   by {(recipe.profiles as { display_name: string } | null)?.display_name || "Anonymous"}
                 </p>
               </div>

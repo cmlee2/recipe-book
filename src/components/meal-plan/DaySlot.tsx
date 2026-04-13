@@ -13,8 +13,8 @@ interface DaySlotProps {
 
 export default function DaySlot({ day, entry, onAdd, onRemove }: DaySlotProps) {
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-3">
-      <h3 className="mb-2 text-xs font-semibold uppercase text-gray-500">
+    <div className="rounded-xl bg-white p-3.5 shadow-sm ring-1 ring-black/[0.04]">
+      <h3 className="mb-3 font-display text-xs font-bold uppercase tracking-widest text-bark">
         {day}
       </h3>
       {entry ? (
@@ -23,15 +23,15 @@ export default function DaySlot({ day, entry, onAdd, onRemove }: DaySlotProps) {
             <img
               src={entry.meal_thumb}
               alt={entry.meal_name || ""}
-              className="mb-2 aspect-square w-full rounded object-cover"
+              className="mb-2.5 aspect-square w-full rounded-lg object-cover"
             />
           )}
-          <p className="text-xs font-medium text-gray-900 line-clamp-2">
+          <p className="font-body text-sm font-semibold text-bark line-clamp-2">
             {entry.meal_name || "Unnamed"}
           </p>
           <button
             onClick={() => onRemove(entry.id)}
-            className="mt-2 text-xs text-red-500 hover:text-red-600"
+            className="mt-2 font-body text-xs font-medium text-warm transition-colors hover:text-terra"
           >
             Remove
           </button>
@@ -39,7 +39,7 @@ export default function DaySlot({ day, entry, onAdd, onRemove }: DaySlotProps) {
       ) : (
         <button
           onClick={onAdd}
-          className="flex h-20 w-full items-center justify-center rounded border-2 border-dashed border-gray-200 text-xs text-gray-400 hover:border-orange-300 hover:text-orange-500"
+          className="flex h-24 w-full items-center justify-center rounded-lg border-2 border-dashed border-warm-lighter font-body text-xs font-medium text-warm transition-all hover:border-terra/30 hover:bg-terra-wash hover:text-terra"
         >
           + Add meal
         </button>

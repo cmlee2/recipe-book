@@ -34,7 +34,6 @@ export default function MealPicker({ day, onPick, onClose }: MealPickerProps) {
 
     setSearching(true);
     try {
-      // Search MealDB
       const res = await fetch(
         `https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(query)}`
       );
@@ -48,7 +47,6 @@ export default function MealPicker({ day, onPick, onClose }: MealPickerProps) {
         })
       );
 
-      // Search user recipes
       const recipesRes = await fetch("/api/recipes");
       const recipes = await recipesRes.json();
       const customResults: SearchResult[] = (Array.isArray(recipes) ? recipes : [])
@@ -81,33 +79,36 @@ export default function MealPicker({ day, onPick, onClose }: MealPickerProps) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="mx-4 w-full max-w-lg rounded-lg bg-white p-6 shadow-xl">
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-gray-900">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-bark/60 backdrop-blur-sm animate-fade-in">
+      <div className="mx-4 w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl ring-1 ring-black/[0.06]">
+        <div className="mb-5 flex items-center justify-between">
+          <h2 className="font-display text-xl font-bold text-bark">
             Pick a meal for {day}
           </h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600"
+            className="rounded-full p-1.5 text-warm transition-colors hover:bg-cream-dark hover:text-bark"
           >
-            ✕
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
           </button>
         </div>
 
-        <form onSubmit={handleSearch} className="mb-4 flex gap-2">
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search meals..."
-            className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
-            autoFocus
-          />
+        <form onSubmit={handleSearch} className="mb-5 flex gap-2">
+          <div className="relative flex-1">
+            <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 text-warm" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search meals..."
+              className="w-full rounded-xl border-0 bg-cream py-3 pl-10 pr-4 font-body text-sm text-bark ring-1 ring-black/[0.06] placeholder:text-warm-light focus:outline-none focus:ring-2 focus:ring-terra/40"
+              autoFocus
+            />
+          </div>
           <button
             type="submit"
             disabled={searching}
-            className="rounded-md bg-orange-500 px-4 py-2 text-sm font-medium text-white hover:bg-orange-600 disabled:opacity-50"
+            className="rounded-xl bg-terra px-5 py-3 font-body text-sm font-semibold text-white transition-all hover:bg-terra-dark disabled:opacity-50"
           >
             Search
           </button>
@@ -115,42 +116,47 @@ export default function MealPicker({ day, onPick, onClose }: MealPickerProps) {
 
         <div className="max-h-80 overflow-y-auto">
           {results.length === 0 && !searching && (
-            <p className="py-4 text-center text-sm text-gray-500">
-              Search for a meal to add to your plan.
-            </p>
+            <div className="flex flex-col items-center py-8">
+              <div className="text-3xl mb-2">🍽️</div>
+              <p className="font-body text-sm text-warm">
+                Search for a meal to add to your plan.
+              </p>
+            </div>
           )}
           {searching && (
-            <p className="py-4 text-center text-sm text-gray-500">
-              Searching...
-            </p>
+            <div className="flex justify-center py-8">
+              <div className="h-6 w-6 animate-spin rounded-full border-3 border-warm-lighter border-t-terra" />
+            </div>
           )}
-          {results.map((result) => (
-            <button
-              key={`${result.type}-${result.id}`}
-              onClick={() => handleSelect(result)}
-              className="flex w-full items-center gap-3 rounded-md p-2 text-left hover:bg-gray-50"
-            >
-              {result.thumb ? (
-                <img
-                  src={result.thumb}
-                  alt={result.name}
-                  className="h-10 w-10 rounded object-cover"
-                />
-              ) : (
-                <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-100 text-gray-400">
-                  🍽
+          <div className="space-y-1">
+            {results.map((result) => (
+              <button
+                key={`${result.type}-${result.id}`}
+                onClick={() => handleSelect(result)}
+                className="flex w-full items-center gap-3 rounded-xl p-2.5 text-left transition-colors hover:bg-terra-wash"
+              >
+                {result.thumb ? (
+                  <img
+                    src={result.thumb}
+                    alt={result.name}
+                    className="h-12 w-12 rounded-lg object-cover"
+                  />
+                ) : (
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-cream-dark text-lg">
+                    🍽
+                  </div>
+                )}
+                <div>
+                  <p className="font-body text-sm font-semibold text-bark">
+                    {result.name}
+                  </p>
+                  <p className="font-body text-xs text-warm">
+                    {result.type === "custom" ? "Your recipe" : "TheMealDB"}
+                  </p>
                 </div>
-              )}
-              <div>
-                <p className="text-sm font-medium text-gray-900">
-                  {result.name}
-                </p>
-                <p className="text-xs text-gray-500">
-                  {result.type === "custom" ? "Your recipe" : "TheMealDB"}
-                </p>
-              </div>
-            </button>
-          ))}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>

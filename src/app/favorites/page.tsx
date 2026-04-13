@@ -1,5 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import MealGrid from "@/components/meals/MealGrid";
 
@@ -23,15 +24,22 @@ export default async function FavoritesPage() {
   }));
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8">
-      <h1 className="mb-6 text-2xl font-bold text-gray-900">My Favorites</h1>
-      {meals.length === 0 ? (
-        <p className="py-12 text-center text-gray-500">
-          No favorites yet. Browse recipes and save the ones you love!
-        </p>
-      ) : (
-        <MealGrid meals={meals} />
-      )}
+    <div className="mx-auto max-w-7xl px-5 py-10">
+      <h1 className="font-display text-3xl font-bold text-bark">My Favorites</h1>
+      <p className="mt-1 font-body text-sm text-warm">Recipes you&apos;ve saved for later</p>
+      <div className="mt-8">
+        {meals.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-20">
+            <div className="text-5xl mb-4">❤️</div>
+            <p className="font-display text-lg text-warm">No favorites yet.</p>
+            <Link href="/meals" className="mt-4 font-body text-sm font-semibold text-terra hover:text-terra-dark">
+              Browse recipes &rarr;
+            </Link>
+          </div>
+        ) : (
+          <MealGrid meals={meals} />
+        )}
+      </div>
     </div>
   );
 }

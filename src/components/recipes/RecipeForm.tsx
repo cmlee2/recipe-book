@@ -35,6 +35,7 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
     initialData?.ingredients?.length ? initialData.ingredients : [{ name: "", measure: "" }]
   );
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
 
   function addIngredient() {
     setIngredients([...ingredients, { name: "", measure: "" }]);
@@ -53,6 +54,7 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
+    setError("");
 
     const filteredIngredients = ingredients.filter((ing) => ing.name.trim());
 
@@ -80,18 +82,30 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
         const data = await res.json();
         router.push(`/my-recipes/${data.id}`);
         router.refresh();
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || `Failed to save recipe (${res.status})`);
       }
     } catch {
-      // ignore
+      setError("Network error. Please try again.");
     } finally {
       setSaving(false);
     }
   }
 
+  const inputClass =
+    "w-full rounded-xl border-0 bg-cream px-4 py-3 font-body text-sm text-bark ring-1 ring-black/[0.06] placeholder:text-warm-light focus:outline-none focus:ring-2 focus:ring-terra/40";
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {error && (
+        <div className="rounded-xl bg-red-50 p-4 font-body text-sm text-red-700 ring-1 ring-red-100">
+          {error}
+        </div>
+      )}
+
       <div>
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="mb-1.5 block font-body text-sm font-semibold text-bark">
           Recipe Name *
         </label>
         <input
@@ -99,13 +113,13 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
+          className={inputClass}
         />
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="mb-1.5 block font-body text-sm font-semibold text-bark">
             Category
           </label>
           <input
@@ -113,11 +127,11 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             placeholder="e.g., Dessert, Seafood"
-            className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
+            className={inputClass}
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="mb-1.5 block font-body text-sm font-semibold text-bark">
             Cuisine / Area
           </label>
           <input
@@ -125,13 +139,13 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
             value={area}
             onChange={(e) => setArea(e.target.value)}
             placeholder="e.g., Italian, Japanese"
-            className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
+            className={inputClass}
           />
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="mb-1.5 block font-body text-sm font-semibold text-bark">
           Image URL
         </label>
         <input
@@ -139,12 +153,12 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
           placeholder="https://..."
-          className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
+          className={inputClass}
         />
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-gray-700">
+        <label className="mb-2 block font-body text-sm font-semibold text-bark">
           Ingredients
         </label>
         <div className="space-y-2">
@@ -155,22 +169,22 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
                 value={ing.name}
                 onChange={(e) => updateIngredient(i, "name", e.target.value)}
                 placeholder="Ingredient"
-                className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
+                className={`flex-1 ${inputClass}`}
               />
               <input
                 type="text"
                 value={ing.measure}
                 onChange={(e) => updateIngredient(i, "measure", e.target.value)}
                 placeholder="Amount"
-                className="w-32 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
+                className={`w-32 ${inputClass}`}
               />
               {ingredients.length > 1 && (
                 <button
                   type="button"
                   onClick={() => removeIngredient(i)}
-                  className="rounded-md px-2 text-sm text-red-500 hover:bg-red-50"
+                  className="rounded-xl px-3 font-body text-sm text-warm transition-colors hover:bg-red-50 hover:text-red-600"
                 >
-                  X
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
                 </button>
               )}
             </div>
@@ -179,33 +193,33 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
         <button
           type="button"
           onClick={addIngredient}
-          className="mt-2 text-sm font-medium text-orange-500 hover:text-orange-600"
+          className="mt-3 font-body text-sm font-semibold text-terra transition-colors hover:text-terra-dark"
         >
           + Add ingredient
         </button>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="mb-1.5 block font-body text-sm font-semibold text-bark">
           Instructions
         </label>
         <textarea
           value={instructions}
           onChange={(e) => setInstructions(e.target.value)}
           rows={8}
-          className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
+          className={`${inputClass} resize-none`}
         />
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <input
           type="checkbox"
           id="is_public"
           checked={isPublic}
           onChange={(e) => setIsPublic(e.target.checked)}
-          className="h-4 w-4 rounded border-gray-300 text-orange-500 focus:ring-orange-500"
+          className="h-4.5 w-4.5 rounded border-warm-light text-terra accent-terra focus:ring-terra"
         />
-        <label htmlFor="is_public" className="text-sm text-gray-700">
+        <label htmlFor="is_public" className="font-body text-sm text-bark-light">
           Share with the community
         </label>
       </div>
@@ -213,7 +227,7 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
       <button
         type="submit"
         disabled={saving || !name.trim()}
-        className="rounded-md bg-orange-500 px-6 py-2 text-sm font-medium text-white hover:bg-orange-600 disabled:opacity-50"
+        className="rounded-full bg-terra px-8 py-3 font-body text-sm font-semibold text-white shadow-sm transition-all hover:bg-terra-dark hover:shadow-md active:scale-[0.97] disabled:opacity-50"
       >
         {saving ? "Saving..." : isEditing ? "Update Recipe" : "Create Recipe"}
       </button>

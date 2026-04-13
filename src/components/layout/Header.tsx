@@ -22,18 +22,20 @@ export default function Header() {
   ];
 
   return (
-    <header className="border-b border-gray-200 bg-white">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
-        <div className="flex items-center gap-8">
-          <Link href="/" className="text-xl font-bold text-gray-900">
-            Recipe Book
+    <header className="relative z-20 border-b border-warm-lighter bg-cream/80 backdrop-blur-md">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
+        <div className="flex items-center gap-10">
+          <Link href="/" className="flex items-center gap-2">
+            <span className="font-display text-2xl font-bold tracking-tight text-bark">
+              Recipe Book
+            </span>
           </Link>
-          <div className="hidden items-center gap-6 sm:flex">
+          <div className="hidden items-center gap-1 sm:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm text-gray-600 hover:text-gray-900"
+                className="rounded-full px-4 py-1.5 font-body text-sm font-medium text-bark-light transition-colors hover:bg-terra-wash hover:text-terra"
               >
                 {link.label}
               </Link>
@@ -45,29 +47,35 @@ export default function Header() {
             <UserButton />
           ) : (
             <SignInButton mode="modal">
-              <button className="rounded-md bg-orange-500 px-4 py-2 text-sm font-medium text-white hover:bg-orange-600">
+              <button className="rounded-full bg-terra px-5 py-2 font-body text-sm font-semibold text-white shadow-sm transition-all hover:bg-terra-dark hover:shadow-md active:scale-[0.97]">
                 Sign In
               </button>
             </SignInButton>
           )}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="sm:hidden rounded-md p-2 text-gray-600 hover:bg-gray-100"
+            className="sm:hidden rounded-lg p-2 text-bark-light hover:bg-cream-dark"
             aria-label="Toggle menu"
           >
-            {menuOpen ? "✕" : "☰"}
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+              {menuOpen ? (
+                <path d="M5 5l10 10M15 5L5 15" />
+              ) : (
+                <path d="M3 6h14M3 10h14M3 14h14" />
+              )}
+            </svg>
           </button>
         </div>
       </nav>
 
       {menuOpen && (
-        <div className="border-t border-gray-100 px-4 pb-3 sm:hidden">
+        <div className="border-t border-warm-lighter bg-cream px-5 pb-4 pt-2 sm:hidden animate-fade-in">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="block py-2 text-sm text-gray-600 hover:text-gray-900"
+              className="block rounded-lg py-2.5 px-3 font-body text-sm font-medium text-bark-light transition-colors hover:bg-terra-wash hover:text-terra"
             >
               {link.label}
             </Link>
