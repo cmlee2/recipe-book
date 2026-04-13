@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getMealById } from "@/lib/mealdb/api";
+import FavoriteButton from "@/components/meals/FavoriteButton";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -37,7 +38,14 @@ export default async function MealDetailPage({ params }: Props) {
         </div>
 
         <div className="p-6">
-          <h1 className="text-3xl font-bold text-gray-900">{meal.strMeal}</h1>
+          <div className="flex items-center justify-between gap-4">
+            <h1 className="text-3xl font-bold text-gray-900">{meal.strMeal}</h1>
+            <FavoriteButton
+              mealId={meal.idMeal}
+              mealName={meal.strMeal}
+              mealThumb={meal.strMealThumb}
+            />
+          </div>
           <div className="mt-2 flex gap-3">
             <span className="rounded-full bg-orange-100 px-3 py-1 text-xs font-medium text-orange-700">
               {meal.strCategory}
