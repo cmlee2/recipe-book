@@ -13,7 +13,7 @@ export default function Error({
       <p className="mt-1 font-body text-sm text-warm">An unexpected error occurred.</p>
       <button
         onClick={reset}
-        className="mt-6 rounded-full bg-terra px-6 py-2.5 font-body text-sm font-semibold text-white shadow-sm transition-all hover:bg-terra-dark hover:shadow-md"
+        className="mt-6 rounded-full bg-accent px-6 py-2.5 font-body text-sm font-semibold text-white shadow-sm transition-all hover:bg-accent-dark hover:shadow-md"
       >
         Try Again
       </button>

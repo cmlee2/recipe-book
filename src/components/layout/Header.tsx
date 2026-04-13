@@ -20,7 +20,7 @@ export default function Header() {
   }
 
   const navLinks = [
-    { href: "/meals", label: "What to Cook" },
+    { href: "/meals", label: "Recipes" },
     { href: "/categories", label: "Categories" },
     ...(isSignedIn
       ? [
@@ -33,48 +33,54 @@ export default function Header() {
   ];
 
   return (
-    <header className="relative z-20 bg-white">
-      {/* Top bar */}
-      <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-4 px-5 py-3">
+    <header className="relative z-20 bg-white border-b border-border">
+      <div className="mx-auto flex max-w-[1200px] items-center justify-between gap-4 px-5 h-16">
         <Link href="/" className="shrink-0">
-          <span className="font-display text-3xl font-bold tracking-tight text-bark">
+          <span className="font-display text-[28px] font-bold text-bark">
             Recipe Book
           </span>
         </Link>
 
-        <form onSubmit={handleSearch} className="hidden sm:block flex-1 max-w-md mx-6">
-          <div className="relative">
-            <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-warm" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="What would you like to cook?"
-              className="w-full rounded-full border border-warm-lighter bg-white py-2 pl-10 pr-4 font-body text-sm text-bark placeholder:text-warm-light focus:border-bark focus:outline-none"
-            />
-          </div>
-        </form>
+        {/* Nav links inline */}
+        <nav className="hidden lg:flex items-center gap-1">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="px-3 py-1.5 font-body text-sm font-semibold text-bark-light transition-colors hover:text-accent"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
 
         <div className="flex items-center gap-3">
+          <form onSubmit={handleSearch} className="hidden sm:block">
+            <div className="relative">
+              <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-warm" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search recipes..."
+                className="w-56 rounded-lg border border-border bg-white py-2 pl-9 pr-3 font-body text-sm text-bark placeholder:text-warm-light focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30"
+              />
+            </div>
+          </form>
+
           {isSignedIn ? (
             <UserButton />
           ) : (
-            <>
-              <SignInButton mode="modal">
-                <button className="rounded-full border border-bark px-5 py-2 font-body text-sm font-semibold text-bark transition-colors hover:bg-bark hover:text-white">
-                  Log In
-                </button>
-              </SignInButton>
-              <SignInButton mode="modal">
-                <button className="hidden sm:block rounded-full bg-terra px-5 py-2 font-body text-sm font-semibold text-white transition-colors hover:bg-terra-dark">
-                  Create free account
-                </button>
-              </SignInButton>
-            </>
+            <SignInButton mode="modal">
+              <button className="rounded-lg bg-accent px-4 py-2 font-body text-sm font-semibold text-white transition-colors hover:bg-accent-dark">
+                Sign In
+              </button>
+            </SignInButton>
           )}
+
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="sm:hidden p-2 text-bark"
+            className="lg:hidden p-2 text-bark"
             aria-label="Toggle menu"
           >
             <svg width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -84,31 +90,15 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Nav links */}
-      <nav className="hidden sm:block border-t border-warm-lighter">
-        <div className="mx-auto flex max-w-[1280px] items-center gap-1 px-5 py-2">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="px-3 py-1.5 font-body text-[15px] font-semibold text-bark transition-colors hover:text-terra"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-      </nav>
-
-      {/* Mobile menu */}
       {menuOpen && (
-        <div className="border-t border-warm-lighter bg-white px-5 pb-4 pt-2 sm:hidden">
-          <form onSubmit={handleSearch} className="mb-3">
+        <div className="border-t border-border bg-white px-5 pb-4 pt-2 lg:hidden">
+          <form onSubmit={handleSearch} className="mb-3 sm:hidden">
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="What would you like to cook?"
-              className="w-full rounded-full border border-warm-lighter py-2.5 px-4 font-body text-sm text-bark placeholder:text-warm-light focus:border-bark focus:outline-none"
+              placeholder="Search recipes..."
+              className="w-full rounded-lg border border-border py-2.5 px-4 font-body text-sm text-bark placeholder:text-warm-light focus:border-accent focus:outline-none"
             />
           </form>
           {navLinks.map((link) => (
@@ -116,7 +106,7 @@ export default function Header() {
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="block py-2.5 font-body text-[15px] font-semibold text-bark"
+              className="block py-2.5 font-body text-sm font-semibold text-bark-light"
             >
               {link.label}
             </Link>

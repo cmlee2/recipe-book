@@ -34,7 +34,7 @@ export default function RecipeCard({
           </div>
         )}
       </div>
-      <h3 className="mt-2.5 font-display text-base font-bold leading-snug text-bark group-hover:text-terra transition-colors">
+      <h3 className="mt-2.5 font-display text-base font-bold leading-snug text-bark group-hover:text-accent transition-colors">
         {name}
       </h3>
       {(category || area) && (

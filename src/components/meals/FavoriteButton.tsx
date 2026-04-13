@@ -57,10 +57,10 @@ export default function FavoriteButton({
     <button
       onClick={toggleFavorite}
       disabled={loading}
-      className={`group flex items-center gap-2 rounded-full px-5 py-2.5 font-body text-sm font-semibold transition-all active:scale-[0.95] disabled:opacity-50 ${
+      className={`flex items-center gap-2 rounded-lg px-4 py-2.5 font-body text-sm font-semibold transition-all active:scale-[0.97] disabled:opacity-50 ${
         isFavorite
-          ? "bg-terra-wash text-terra ring-1 ring-terra/20 hover:bg-terra hover:text-white"
-          : "bg-cream-dark text-bark-light ring-1 ring-black/[0.06] hover:bg-terra-wash hover:text-terra hover:ring-terra/20"
+          ? "bg-accent-light text-accent border border-accent/20"
+          : "bg-white text-bark-light border border-border hover:border-accent hover:text-accent"
       }`}
     >
       <svg width="16" height="16" viewBox="0 0 24 24" fill={isFavorite ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2">

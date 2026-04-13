@@ -94,7 +94,7 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
   }
 
   const inputClass =
-    "w-full rounded-xl border-0 bg-cream px-4 py-3 font-body text-sm text-bark ring-1 ring-black/[0.06] placeholder:text-warm-light focus:outline-none focus:ring-2 focus:ring-terra/40";
+    "w-full rounded-xl border-0 bg-cream px-4 py-3 font-body text-sm text-bark ring-1 ring-black/[0.06] placeholder:text-warm-light focus:outline-none focus:ring-2 focus:ring-accent/40";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -193,7 +193,7 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
         <button
           type="button"
           onClick={addIngredient}
-          className="mt-3 font-body text-sm font-semibold text-terra transition-colors hover:text-terra-dark"
+          className="mt-3 font-body text-sm font-semibold text-accent transition-colors hover:text-accent-dark"
         >
           + Add ingredient
         </button>
@@ -217,7 +217,7 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
           id="is_public"
           checked={isPublic}
           onChange={(e) => setIsPublic(e.target.checked)}
-          className="h-4.5 w-4.5 rounded border-warm-light text-terra accent-terra focus:ring-terra"
+          className="h-4.5 w-4.5 rounded border-warm-light text-accent accent-accent focus:ring-accent"
         />
         <label htmlFor="is_public" className="font-body text-sm text-bark-light">
           Share with the community
@@ -227,7 +227,7 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
       <button
         type="submit"
         disabled={saving || !name.trim()}
-        className="rounded-full bg-terra px-8 py-3 font-body text-sm font-semibold text-white shadow-sm transition-all hover:bg-terra-dark hover:shadow-md active:scale-[0.97] disabled:opacity-50"
+        className="rounded-full bg-accent px-8 py-3 font-body text-sm font-semibold text-white shadow-sm transition-all hover:bg-accent-dark hover:shadow-md active:scale-[0.97] disabled:opacity-50"
       >
         {saving ? "Saving..." : isEditing ? "Update Recipe" : "Create Recipe"}
       </button>

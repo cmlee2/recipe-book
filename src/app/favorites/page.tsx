@@ -32,7 +32,7 @@ export default async function FavoritesPage() {
           <div className="flex flex-col items-center justify-center py-20">
             <div className="text-5xl mb-4">❤️</div>
             <p className="font-display text-lg text-warm">No favorites yet.</p>
-            <Link href="/meals" className="mt-4 font-body text-sm font-semibold text-terra hover:text-terra-dark">
+            <Link href="/meals" className="mt-4 font-body text-sm font-semibold text-accent hover:text-accent-dark">
               Browse recipes &rarr;
             </Link>
           </div>

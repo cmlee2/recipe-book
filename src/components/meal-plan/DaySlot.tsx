@@ -31,7 +31,7 @@ export default function DaySlot({ day, entry, onAdd, onRemove }: DaySlotProps) {
           </p>
           <button
             onClick={() => onRemove(entry.id)}
-            className="mt-2 font-body text-xs font-medium text-warm transition-colors hover:text-terra"
+            className="mt-2 font-body text-xs font-medium text-warm transition-colors hover:text-accent"
           >
             Remove
           </button>
@@ -39,7 +39,7 @@ export default function DaySlot({ day, entry, onAdd, onRemove }: DaySlotProps) {
       ) : (
         <button
           onClick={onAdd}
-          className="flex h-24 w-full items-center justify-center rounded-lg border-2 border-dashed border-warm-lighter font-body text-xs font-medium text-warm transition-all hover:border-terra/30 hover:bg-terra-wash hover:text-terra"
+          className="flex h-24 w-full items-center justify-center rounded-lg border-2 border-dashed border-warm-lighter font-body text-xs font-medium text-warm transition-all hover:border-accent/30 hover:bg-accent-light hover:text-accent"
         >
           + Add meal
         </button>

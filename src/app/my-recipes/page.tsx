@@ -26,7 +26,7 @@ export default async function MyRecipesPage() {
         </div>
         <Link
           href="/my-recipes/new"
-          className="rounded-full bg-terra px-5 py-2.5 font-body text-sm font-semibold text-white shadow-sm transition-all hover:bg-terra-dark hover:shadow-md active:scale-[0.97]"
+          className="rounded-full bg-accent px-5 py-2.5 font-body text-sm font-semibold text-white shadow-sm transition-all hover:bg-accent-dark hover:shadow-md active:scale-[0.97]"
         >
           + New Recipe
         </Link>
@@ -36,7 +36,7 @@ export default async function MyRecipesPage() {
         <div className="flex flex-col items-center justify-center py-20">
           <div className="text-5xl mb-4">📝</div>
           <p className="font-display text-lg text-warm">No recipes yet.</p>
-          <Link href="/my-recipes/new" className="mt-4 font-body text-sm font-semibold text-terra hover:text-terra-dark">
+          <Link href="/my-recipes/new" className="mt-4 font-body text-sm font-semibold text-accent hover:text-accent-dark">
             Create your first recipe &rarr;
           </Link>
         </div>

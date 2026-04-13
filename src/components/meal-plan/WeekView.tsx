@@ -104,7 +104,7 @@ export default function WeekView() {
 
       {loading ? (
         <div className="flex justify-center py-16">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-warm-lighter border-t-terra" />
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-warm-lighter border-t-accent" />
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-7">

@@ -2,18 +2,22 @@
 
 @theme inline {
   --color-cream: #FBF7F4;
-  --color-cream-dark: #F3ECE5;
+  --color-cream-dark: #F0EBE5;
+  --color-accent: #1D6AE5;
+  --color-accent-dark: #1554B8;
+  --color-accent-light: #E8F0FE;
   --color-terra: #C4552D;
   --color-terra-light: #D4714F;
   --color-terra-dark: #A3431F;
   --color-terra-wash: #FDF0EB;
   --color-sage: #7B8F6B;
   --color-sage-light: #E8EDE4;
-  --color-bark: #2D1B0E;
-  --color-bark-light: #5C4433;
-  --color-warm: #A39487;
-  --color-warm-light: #C7BDB3;
-  --color-warm-lighter: #E8E2DC;
+  --color-bark: #222222;
+  --color-bark-light: #555555;
+  --color-warm: #888888;
+  --color-warm-light: #AAAAAA;
+  --color-warm-lighter: #E0E0E0;
+  --color-border: #E5E5E5;
   --font-display: var(--font-playfair), Georgia, serif;
   --font-body: var(--font-dm-sans), system-ui, sans-serif;
 }
@@ -34,46 +38,17 @@ body {
 }
 
 ::selection {
-  background: var(--color-terra-wash);
-  color: var(--color-terra-dark);
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-cream);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-warm-light);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-warm);
-}
-
-/* Noise texture overlay */
-.noise-bg {
-  position: relative;
-}
-.noise-bg::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
+  background: var(--color-accent-light);
+  color: var(--color-accent-dark);
 }
 
 /* Stagger animation */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 .animate-fade-up {
-  animation: fadeUp 0.5s ease-out forwards;
+  animation: fadeUp 0.4s ease-out forwards;
   opacity: 0;
 }
 
@@ -82,6 +57,6 @@ body {
   to { opacity: 1; }
 }
 .animate-fade-in {
-  animation: fadeIn 0.4s ease-out forwards;
+  animation: fadeIn 0.3s ease-out forwards;
   opacity: 0;
 }

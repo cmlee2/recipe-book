@@ -66,7 +66,7 @@ export default async function CommunityPage() {
             <div className="text-4xl mb-3">📖</div>
             <p className="font-body text-sm text-warm">
               No shared recipes yet.{" "}
-              <Link href="/my-recipes/new" className="font-semibold text-terra hover:text-terra-dark">
+              <Link href="/my-recipes/new" className="font-semibold text-accent hover:text-accent-dark">
                 Create one!
               </Link>
             </p>

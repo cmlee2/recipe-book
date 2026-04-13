@@ -101,14 +101,14 @@ export default function MealPicker({ day, onPick, onClose }: MealPickerProps) {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search meals..."
-              className="w-full rounded-xl border-0 bg-cream py-3 pl-10 pr-4 font-body text-sm text-bark ring-1 ring-black/[0.06] placeholder:text-warm-light focus:outline-none focus:ring-2 focus:ring-terra/40"
+              className="w-full rounded-xl border-0 bg-cream py-3 pl-10 pr-4 font-body text-sm text-bark ring-1 ring-black/[0.06] placeholder:text-warm-light focus:outline-none focus:ring-2 focus:ring-accent/40"
               autoFocus
             />
           </div>
           <button
             type="submit"
             disabled={searching}
-            className="rounded-xl bg-terra px-5 py-3 font-body text-sm font-semibold text-white transition-all hover:bg-terra-dark disabled:opacity-50"
+            className="rounded-xl bg-accent px-5 py-3 font-body text-sm font-semibold text-white transition-all hover:bg-accent-dark disabled:opacity-50"
           >
             Search
           </button>
@@ -125,7 +125,7 @@ export default function MealPicker({ day, onPick, onClose }: MealPickerProps) {
           )}
           {searching && (
             <div className="flex justify-center py-8">
-              <div className="h-6 w-6 animate-spin rounded-full border-3 border-warm-lighter border-t-terra" />
+              <div className="h-6 w-6 animate-spin rounded-full border-3 border-warm-lighter border-t-accent" />
             </div>
           )}
           <div className="space-y-1">
@@ -133,7 +133,7 @@ export default function MealPicker({ day, onPick, onClose }: MealPickerProps) {
               <button
                 key={`${result.type}-${result.id}`}
                 onClick={() => handleSelect(result)}
-                className="flex w-full items-center gap-3 rounded-xl p-2.5 text-left transition-colors hover:bg-terra-wash"
+                className="flex w-full items-center gap-3 rounded-xl p-2.5 text-left transition-colors hover:bg-accent-light"
               >
                 {result.thumb ? (
                   <img
