@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Recipe Book
+
+A full-stack recipe web app for searching, saving, planning, and sharing meals.
+
+**Live:** [recipe-book-rho-snowy.vercel.app](https://recipe-book-rho-snowy.vercel.app/)
+
+## What It Does
+
+- **Search recipes** from thousands of meals via TheMealDB API
+- **Browse by category** — Seafood, Desserts, Chicken, Pasta, and more
+- **Save favorites** — bookmark any recipe to your personal collection
+- **Weekly meal planner** — assign meals to each day of the week with week-by-week navigation
+- **Create your own recipes** — add custom recipes with ingredients, instructions, and images
+- **Community** — see what others have favorited and browse shared user-created recipes
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 16 (App Router, Server Components) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 |
+| Authentication | Clerk |
+| Database | Supabase (PostgreSQL) |
+| Recipe Data | TheMealDB API |
+| Testing | Playwright |
+| Deployment | Vercel |
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20+
+- A [Clerk](https://clerk.com) account
+- A [Supabase](https://supabase.com) project
+
+### Setup
+
+1. Clone the repo and install dependencies:
+   ```bash
+   git clone https://github.com/cmlee2/recipe-book.git
+   cd recipe-book
+   npm install
+   ```
+
+2. Copy `.env.example` to `.env` and fill in your keys:
+   ```bash
+   cp .env.example .env
+   ```
+
+3. Run the database schema in your Supabase SQL editor:
+   ```
+   supabase/schema.sql
+   ```
+
+4. Start the dev server:
+   ```bash
+   npm run dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000)
+
+### Running Tests
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npx playwright test
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Architecture
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Recipes from TheMealDB are fetched server-side and rendered as complete pages — no loading spinners for initial page loads. User data (favorites, recipes, meal plans) is stored in Supabase and accessed through API routes that verify authentication via Clerk.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+Browser ──→ Next.js Server ──→ TheMealDB API (read-only, public)
+              │
+              └──→ API Routes ──→ Supabase (user data)
+                     │
+                     └──→ Clerk (authentication)
+```
