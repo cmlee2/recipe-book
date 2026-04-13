@@ -28,11 +28,11 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" className={`h-full ${playfair.variable} ${dmSans.variable}`}>
-        <body className="min-h-full flex flex-col noise-bg">
+      <html lang="en" className={`h-full ${playfair.variable} ${dmSans.variable}`} style={{ colorScheme: 'light' }} data-theme="light">
+        <body className="min-h-full flex flex-col">
           <Header />
-          <main className="flex-1 relative z-10">{children}</main>
-          <footer className="relative z-10 border-t border-warm-lighter py-8 text-center">
+          <main className="flex-1">{children}</main>
+          <footer className="border-t border-warm-lighter py-8 text-center">
             <p className="font-body text-sm text-warm">
               Recipe Book &mdash; made with care
             </p>
