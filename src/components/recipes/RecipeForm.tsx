@@ -93,8 +93,9 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
     }
   }
 
-  const inputClass =
-    "w-full rounded-xl border-0 bg-cream px-4 py-3 font-body text-sm text-bark ring-1 ring-black/[0.06] placeholder:text-warm-light focus:outline-none focus:ring-2 focus:ring-accent/40";
+  const inputBase =
+    "rounded-lg border border-border bg-white px-4 py-3 font-body text-sm text-bark placeholder:text-warm-light focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/30";
+  const inputClass = `w-full ${inputBase}`;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -169,14 +170,14 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
                 value={ing.name}
                 onChange={(e) => updateIngredient(i, "name", e.target.value)}
                 placeholder="Ingredient"
-                className={`flex-1 ${inputClass}`}
+                className={`flex-1 min-w-0 ${inputBase}`}
               />
               <input
                 type="text"
                 value={ing.measure}
                 onChange={(e) => updateIngredient(i, "measure", e.target.value)}
                 placeholder="Amount"
-                className={`w-32 ${inputClass}`}
+                className={`w-36 shrink-0 ${inputBase}`}
               />
               {ingredients.length > 1 && (
                 <button
